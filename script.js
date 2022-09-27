@@ -1,21 +1,25 @@
 // todo 1) add function to check whether the user read that book or not
-// todo 2) add a function to edit the content of the book.
 
 let bookArray = [];
 class Book {
-    constructor(name, author, pages) {
+    constructor(name, author, pages, read) {
         this.name = name;
         this.author = author;
         this.pages = pages;
+        this.read=read;
     }
 }
 
 const container = document.querySelector('.container');
 const show = document.createElement('div');
 const createBtn = document.getElementById("create");
+const editDiv=document.getElementById('edit')
 container.appendChild(show);
 
-createBtn.addEventListener('click', addBook);
+createBtn.addEventListener('click',()=> {
+    if(isPressed==false){
+    addBook()}
+});
 
 function addBook() {
     const bookName = document.getElementById('name');
@@ -41,31 +45,70 @@ function deleteBook(bookName) {
 
 
 
-function editBook(bookName) {
-    const index = bookArray.indexOf(bookName);
-    if (index > -1) {
-        bookArray.splice(index, 1);
-    }
-    showBook();
+function editBook(book_Name) {
+    const index = bookArray.indexOf(book_Name);
+
+    // creating edit button
+    const editBtn= document.createElement("button")
+    editBtn.innerHTML=`edit ${bookArray[index].name} book`
+    editDiv.appendChild(editBtn)
+    editBtn.classList.add(".btn")
+
+    // grabbing important elements
+    const bookName = document.getElementById('name');
+    const author = document.getElementById('author');
+    const pages = document.getElementById('pages');
+
+    
+    //changing the values of index 
+    editBtn.addEventListener('click', ()=>{
+        if (bookName.value === '') {
+            return
+        }
+        bookArray[index].name=bookName.value;
+        bookArray[index].author=author.value;
+        bookArray[index].pages=pages.value;
+        showBook()
+        clear(bookName, author, pages);
+        editDiv.innerHTML=''
+        return isPressed=false
+    })
 }
 
 
 
+let isPressed=false;
 function showBook() {
-    console.log(bookArray)
-    console.log(`this is expArray ${expArray}`)
-    console.log(expArray)
     show.innerHTML = ''
     bookArray.forEach(element => {
         const showBookDiv = document.createElement('div');
         show.appendChild(showBookDiv);
+
+        //*creating delete button
         const deleteBtn = document.createElement('button');
-        show.appendChild(deleteBtn);
         deleteBtn.innerHTML = 'Remove Book';
-        deleteBtn.classList.add(".deleteBtn");
+        deleteBtn.classList.add(".btn");
+        show.appendChild(deleteBtn);
         deleteBtn.addEventListener('click', () => deleteBook(element));
-        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages}`;
+
+        // *creating edit button
+        const editBtn=document.createElement('button');
+        editBtn.textContent="Edit the file";
+        editBtn.classList.add(".btn");
+        show.appendChild(editBtn)
+        editBtn.addEventListener("click",()=> {
+            if(isPressed==false){
+                editBook(element)
+                isPressed=true
+            }
+        })
+
+        //*displaying element to the div
+
+        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br><br><br>`;
     });
+
+    return isPressed=false
 }
 
 

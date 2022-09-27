@@ -9,29 +9,16 @@ class Book {
 }
 
 const show = document.createElement('div')
-const con = document.querySelector('.container');
+const container = document.querySelector('.container');
 const createBtn = document.getElementById("create")
 const deleteBtn = document.getElementById('delete')
-con.appendChild(show)
+container.appendChild(show)
 
 createBtn.addEventListener('click', addBook);
-deleteBtn.addEventListener('click', deleteBook)
 
 function addBook() {
-    show.innerHTML = ''
-    const name = document.getElementById('name')
-    const author = document.getElementById('author')
-    const pages = document.getElementById('pages')
-    if (name.value && author.value && pages.value != '') {
-        const newBook = new Book(name.value, author.value, pages.value)
-    }
-    myArray.forEach(element => {
-        const showBookDiv = document.createElement('div')
-        show.appendChild(showBookDiv)
-        btn()
-        showBookDiv.innerHTML = `name: ${element.name} || author:${element.author},|| pages: ${element.pages}`
-    });
-    clear(name, author, pages)
+    console.log(myArray)
+    book()
 }
 
 
@@ -41,15 +28,33 @@ function clear(name, author, pages) {
     name.value = ''
 }
 
-// todo change it's name
-function btn() {
-    const deleteBtn = document.createElement('button');
-    show.appendChild(deleteBtn)  
-    deleteBtn.innerHTML = 'delete'
-    deleteBtn.classList.add(".deleteBtn")
-    deleteBtn.addEventListener('click', deleteBook)
+
+function deleteBook(some) {
+    
+    const index = myArray.indexOf(some);
+    if (index > -1) {
+        myArray.splice(index, 1);
+    }
+    book()
 }
 
-function deleteBook (){
-    console.log('clicked')
+function book() {
+    show.innerHTML = ''
+    const name = document.getElementById('name')
+    const author = document.getElementById('author')
+    const pages = document.getElementById('pages')
+
+    const newBook = new Book(name.value, author.value, pages.value)
+
+    myArray.forEach(element => {
+        const showBookDiv = document.createElement('div')
+        show.appendChild(showBookDiv)
+        const deleteBtn = document.createElement('button');
+        show.appendChild(deleteBtn)
+        deleteBtn.innerHTML = 'delete'
+        deleteBtn.classList.add(".deleteBtn")
+        deleteBtn.addEventListener('click', () => deleteBook(element))
+        showBookDiv.innerHTML = `name: ${element.name} || author: ${element.author}, || pages: ${element.pages}`
+    });
+    clear(name, author, pages)
 }

@@ -18,34 +18,25 @@ createBtn.addEventListener('click', addBook);
 
 function addBook() {
     console.log(myArray)
-    book()
+    const bookName = document.getElementById('name')
+    const author = document.getElementById('author')
+    const pages = document.getElementById('pages')
+    const newBook = new Book(bookName.value, author.value, pages.value)
+    clear(bookName, author, pages)
+    showBook()
 }
-
-
-function clear(name, author, pages) {
-    author.value = ''
-    pages.value = ''
-    name.value = ''
-}
-
 
 function deleteBook(some) {
-    
     const index = myArray.indexOf(some);
     if (index > -1) {
         myArray.splice(index, 1);
     }
-    book()
+    showBook()
 }
 
-function book() {
+
+function showBook() {
     show.innerHTML = ''
-    const name = document.getElementById('name')
-    const author = document.getElementById('author')
-    const pages = document.getElementById('pages')
-
-    const newBook = new Book(name.value, author.value, pages.value)
-
     myArray.forEach(element => {
         const showBookDiv = document.createElement('div')
         show.appendChild(showBookDiv)
@@ -56,5 +47,11 @@ function book() {
         deleteBtn.addEventListener('click', () => deleteBook(element))
         showBookDiv.innerHTML = `name: ${element.name} || author: ${element.author}, || pages: ${element.pages}`
     });
-    clear(name, author, pages)
+}
+
+
+function clear(name, author, pages) {
+    author.value = ''
+    pages.value = ''
+    name.value = ''
 }

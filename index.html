@@ -1,44 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container"></div>
-    <br>
-    <br>
-    
-    <div class="newBook">
-        <div class="bookName">
-            <label for="name">Title</label>
-            <input type="text" id='name' name="name" required>
-        </div>
-        <div class="bookAuthor">
-            <label for="author">Author</label>
-            <input type="text" id="author" name="author" required>
-        </div>
-        <div class="pages">
-            <label for="pages">Pages</label>
-            <input type="number" id="pages" name="pages" required>
-        </div>
-    </div>
-    <button class="btn" id="readBtn">READ/UNREAD</button>
-    <button id="create" type="submit">Add book</button>
-    <div class="edit" id="edit"></div>
-    <div class="readUread">
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="books">
-        <div class="totalBook" id="total_book">Total Numbers of book: 0</div>
-        <div class="totalBook" id="total_read_book">Read Book: 0</div>
-        <div class="totalBook" id="total_unread_book">Unread Book: 0</div>
 
+<body>
+
+    <header class="head">MUSHROOM LIBRARY</header>
+    <div class="wrapper">
+        <div class="booksDiv">
+            <div class="newBook">
+                <div class="bookName">
+                    <label for="name">*Title</label>
+                    <input type="text" id='name' name="name" required>
+                </div>
+                <div class="bookAuthor">
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author" required>
+                </div>
+                <div class="pages">
+                    <label for="pages">Pages</label>
+                    <input type="number" id="pages" name="pages" required>
+                </div>
+                <div class="noteBook">
+                    <label for="note">Note</label>
+                    <textarea name="notes" id="notes" cols="30" rows="5" placeholder="Notes about the book"></textarea>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="btn" id="readBtn">READ/UNREAD</button>
+                <button id="create" type="submit">Add book</button>
+                <div class="edit" id="edit"></div>
+                <div class="readUread">
+                </div>
+            </div>
+            <div class="books">
+                <div class="totalBook" id="total_book">Total Number of book: 0</div>
+                <div class="totalBook" id="total_read_book">Total Read Book: 0</div>
+                <div class="totalBook" id="total_unread_book">Total Unread Book: 0</div>
+
+            </div>
+        </div>
+        <div class="bookShelf">
+            <div class="container">
+
+            </div>
+        </div>
     </div>
 </body>
+
 </html>

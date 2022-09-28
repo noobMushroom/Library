@@ -1,5 +1,6 @@
 const container = document.querySelector('.container');
 const show = document.createElement('div');
+show.classList.add('show')
 const createBtn = document.getElementById("create");
 const editDiv = document.getElementById('edit')
 container.appendChild(show);
@@ -12,11 +13,12 @@ let isPressed = false;// it will determine the functionality of different button
 let amIRead = ''; // tells if user have read the book
 
 class Book {
-    constructor(name, author, pages, read) {
+    constructor(name, author, pages, read, note) {
         this.name = name;
         this.author = author;
         this.pages = pages;
         this.read = read;
+        this.note=note;
     }
 }
 
@@ -33,13 +35,14 @@ function addBook() {
     const bookName = document.getElementById('name');
     const author = document.getElementById('author');
     const pages = document.getElementById('pages');
+    const notes= document.getElementById('notes')
     if (bookName.value === '') {
         return
     }
     let newBook = bookName.value
-    newBook = new Book(bookName.value, author.value, pages.value, amIRead);
+    newBook = new Book(bookName.value, author.value, pages.value, amIRead, notes.value);
     bookArray.push(newBook);
-    clear(bookName, author, pages);
+    clear(bookName, author, pages,notes);
     showBook();
 }
 
@@ -62,13 +65,13 @@ function editBook(book_Name) {
     const editBtn = document.createElement("button")
     editBtn.innerHTML = `change ${bookArray[index].name} detail`
     editDiv.appendChild(editBtn)
-    editBtn.classList.add(".btn")
+    editBtn.classList.add("btn")
 
     // grabbing important elements
     const bookName = document.getElementById('name');
     const author = document.getElementById('author');
     const pages = document.getElementById('pages');
-
+    const notes= document.getElementById('notes')
 
     //changing the values of index 
     editBtn.addEventListener('click', () => {
@@ -89,9 +92,16 @@ function editBook(book_Name) {
         } else {
             bookArray[index].pages = pages.value;
         }
+
+        if (notes.value==''){
+            notes.value=bookArray[index].note
+        }else{
+            bookArray[index].note=notes.value
+        }
+
         bookArray[index].read = amIRead
         showBook()
-        clear(bookName, author, pages);
+        clear(bookName, author, pages, notes );
         editDiv.innerHTML = ''
         return isPressed = false
     })
@@ -135,7 +145,7 @@ function showBook() {
 
     bookArray.forEach(element => {
         const showBookDiv = document.createElement('div');
-        show.classList.add(".show")
+        showBookDiv.classList.add("showBook")
         show.appendChild(showBookDiv);
         //create read button
         createReadBtn(element)
@@ -149,15 +159,16 @@ function showBook() {
 
         //*displaying element to the div
 
-        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br> ${element.read} <br><br>`;
+        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br> Notes: ${element.note}`;
     });
 }
 
 
-function clear(name, author, pages) {
+function clear(name, author, pages, notes) {
     author.value = '';
     pages.value = '';
     name.value = '';
+    notes.value='';
 }
 
 
@@ -165,7 +176,7 @@ function clear(name, author, pages) {
 function createReadBtn(book) {
     const index = bookArray.indexOf(book);
     const readUnreadBtn = document.createElement("button");
-    readUnreadBtn.classList.add('.btn');
+    readUnreadBtn.classList.add('btn');
     if (bookArray[index].read == 'read') {
         readUnreadBtn.setAttribute('style', 'background: green;')
     } else if (bookArray[index].read == 'unread') {
@@ -192,7 +203,7 @@ function createEditBtn(book) {
     const index = bookArray.indexOf(book);
     const editBtn = document.createElement('button');
     editBtn.textContent = `edit ${bookArray[index].name} book`;
-    editBtn.classList.add(".btn");
+    editBtn.classList.add("btn");
     show.appendChild(editBtn)
     editBtn.addEventListener("click", () => {
         if (isPressed == false) {
@@ -210,7 +221,7 @@ function createDeleteBtn(book) {
     const index = bookArray.indexOf(book);
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = 'Remove Book';
-    deleteBtn.classList.add(".btn");
+    deleteBtn.classList.add("btn");
     show.appendChild(deleteBtn);
     deleteBtn.addEventListener('click', () => deleteBook(book));
 }
@@ -227,6 +238,6 @@ function bookCalculator() {
     totalReadBooks.innerHTML=`Total read books: ${readBooks.length}`
 
     let unreadBooks= bookArray.filter(book=> book.read=='unread');
-    totalUnreadBooks.innerHTML=`Total read books: ${unreadBooks.length}`
+    totalUnreadBooks.innerHTML=`Total Unread books: ${unreadBooks.length}`
 
 }

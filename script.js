@@ -56,7 +56,7 @@ function editBook(book_Name) {
 
     // creating edit button
     const editBtn = document.createElement("button")
-    editBtn.innerHTML = `edit ${bookArray[index].name} book`
+    editBtn.innerHTML = `change ${bookArray[index].name} detail`
     editDiv.appendChild(editBtn)
     editBtn.classList.add(".btn")
 
@@ -120,10 +120,10 @@ function readUnread() {
 readUnread()
 function showBook() {
     show.innerHTML = ''
-    console.log(bookArray)
     const totalBooks = document.getElementById('total_book')
     totalBooks.innerHTML = `Total Number of book: ${bookArray.length}`
-
+    
+    readUnread()
     const readBtn = document.getElementById('readBtn')
     readBtn.innerHTML = 'unread'
     readBtn.setAttribute('style', "background:red;")
@@ -143,7 +143,7 @@ function showBook() {
 
         // *creating edit button
         const editBtn = document.createElement('button');
-        editBtn.textContent = "Edit the file";
+        editBtn.textContent = `edit ${element.name} book`;
         editBtn.classList.add(".btn");
         show.appendChild(editBtn)
         editBtn.addEventListener("click", () => {
@@ -154,9 +154,19 @@ function showBook() {
             }
         })
 
+        // creating read button
+        const readUnreadBtn=document.createElement("button");
+        readUnreadBtn.classList.add('.btn');
+        show.appendChild(readUnreadBtn);
+        readUnreadBtn.addEventListener("click", ()=> {
+            console.log("clicked")}
+        )
+        readUnreadBtn.innerHTML=`${amIRead}`
+
+
         //*displaying element to the div
 
-        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br> ${element.read} <br><br><br>`;
+        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br> ${element.read} <br><br>`;
     });
 }
 

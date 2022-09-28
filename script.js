@@ -3,8 +3,7 @@
 let bookArray = [];
 
 let isPressed = false;
-let amIRead = 'unread';
-let isRead = false
+let amIRead = '';
 
 class Book {
     constructor(name, author, pages, read) {
@@ -24,6 +23,7 @@ container.appendChild(show);
 createBtn.addEventListener('click', () => {
     if (isPressed == false) {
         addBook()
+
     }
 });
 
@@ -85,6 +85,7 @@ function editBook(book_Name) {
         } else {
             bookArray[index].pages = pages.value;
         }
+        bookArray[index].read=amIRead
         showBook()
         clear(bookName, author, pages);
         editDiv.innerHTML = ''
@@ -97,11 +98,11 @@ function editBook(book_Name) {
 // * read unread function to check if the book is read or not 
 
 function readUnread() {
-
+    let isRead = false
     const readBtn = document.getElementById('readBtn')
     readBtn.innerHTML = 'unread'
     readBtn.setAttribute('style', "background:red;")
-
+    amIRead = 'unread'
     readBtn.addEventListener("click", () => {
         if (isRead == false) {
             readBtn.innerHTML = 'read'
@@ -117,7 +118,6 @@ function readUnread() {
     })
 }
 readUnread()
-
 function showBook() {
     show.innerHTML = ''
     console.log(bookArray)
@@ -127,6 +127,8 @@ function showBook() {
     const readBtn = document.getElementById('readBtn')
     readBtn.innerHTML = 'unread'
     readBtn.setAttribute('style', "background:red;")
+    amIRead = 'unread';
+
 
     bookArray.forEach(element => {
         const showBookDiv = document.createElement('div');
@@ -138,7 +140,6 @@ function showBook() {
         deleteBtn.classList.add(".btn");
         show.appendChild(deleteBtn);
         deleteBtn.addEventListener('click', () => deleteBook(element));
-        isRead = false
 
         // *creating edit button
         const editBtn = document.createElement('button');
@@ -147,6 +148,7 @@ function showBook() {
         show.appendChild(editBtn)
         editBtn.addEventListener("click", () => {
             if (isPressed == false) {
+                readUnread()
                 editBook(element)
                 isPressed = true
             }

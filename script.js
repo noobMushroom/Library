@@ -1,24 +1,27 @@
 // todo 1) add function to check whether the user read that book or not
 
 let bookArray = [];
+
+let isPressed = false;
 class Book {
     constructor(name, author, pages, read) {
         this.name = name;
         this.author = author;
         this.pages = pages;
-        this.read=read;
+        this.read = read;
     }
 }
 
 const container = document.querySelector('.container');
 const show = document.createElement('div');
 const createBtn = document.getElementById("create");
-const editDiv=document.getElementById('edit')
+const editDiv = document.getElementById('edit')
 container.appendChild(show);
 
-createBtn.addEventListener('click',()=> {
-    if(isPressed==false){
-    addBook()}
+createBtn.addEventListener('click', () => {
+    if (isPressed == false) {
+        addBook()
+    }
 });
 
 function addBook() {
@@ -28,7 +31,7 @@ function addBook() {
     if (bookName.value === '') {
         return
     }
-    let newBook= bookName.value
+    let newBook = bookName.value
     newBook = new Book(bookName.value, author.value, pages.value);
     bookArray.push(newBook);
     clear(bookName, author, pages);
@@ -49,8 +52,8 @@ function editBook(book_Name) {
     const index = bookArray.indexOf(book_Name);
 
     // creating edit button
-    const editBtn= document.createElement("button")
-    editBtn.innerHTML=`edit ${bookArray[index].name} book`
+    const editBtn = document.createElement("button")
+    editBtn.innerHTML = `edit ${bookArray[index].name} book`
     editDiv.appendChild(editBtn)
     editBtn.classList.add(".btn")
 
@@ -59,27 +62,42 @@ function editBook(book_Name) {
     const author = document.getElementById('author');
     const pages = document.getElementById('pages');
 
-    
+
     //changing the values of index 
-    editBtn.addEventListener('click', ()=>{
-        if (bookName.value === '') {
-            return
+    editBtn.addEventListener('click', () => {
+        if (bookName.value == '') {
+            bookName.value = bookArray[index].name
+        } else {
+            bookArray[index].name = bookName.value;
         }
-        bookArray[index].name=bookName.value;
-        bookArray[index].author=author.value;
-        bookArray[index].pages=pages.value;
+
+        if (author.value == '') {
+            author.value = bookArray[index].author;
+        } else {
+            bookArray[index].author = author.value;
+        }
+
+        if (pages.value == '') {
+            pages.value = bookArray[index].pages
+        } else {
+            bookArray[index].pages = pages.value;
+        }
         showBook()
         clear(bookName, author, pages);
-        editDiv.innerHTML=''
-        return isPressed=false
+        editDiv.innerHTML = ''
+        return isPressed = false
     })
 }
 
 
 
-let isPressed=false;
+
 function showBook() {
     show.innerHTML = ''
+
+    const totalBooks= document.getElementById('total_book')
+    totalBooks.innerHTML=`Total Number of book: ${bookArray.length}`
+
     bookArray.forEach(element => {
         const showBookDiv = document.createElement('div');
         show.appendChild(showBookDiv);
@@ -92,14 +110,14 @@ function showBook() {
         deleteBtn.addEventListener('click', () => deleteBook(element));
 
         // *creating edit button
-        const editBtn=document.createElement('button');
-        editBtn.textContent="Edit the file";
+        const editBtn = document.createElement('button');
+        editBtn.textContent = "Edit the file";
         editBtn.classList.add(".btn");
         show.appendChild(editBtn)
-        editBtn.addEventListener("click",()=> {
-            if(isPressed==false){
+        editBtn.addEventListener("click", () => {
+            if (isPressed == false) {
                 editBook(element)
-                isPressed=true
+                isPressed = true
             }
         })
 
@@ -108,7 +126,7 @@ function showBook() {
         showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br><br><br>`;
     });
 
-    return isPressed=false
+    return isPressed = false
 }
 
 

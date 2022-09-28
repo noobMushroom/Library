@@ -3,6 +3,9 @@
 let bookArray = [];
 
 let isPressed = false;
+let amIRead = 'unread';
+let isRead = false
+
 class Book {
     constructor(name, author, pages, read) {
         this.name = name;
@@ -32,7 +35,7 @@ function addBook() {
         return
     }
     let newBook = bookName.value
-    newBook = new Book(bookName.value, author.value, pages.value);
+    newBook = new Book(bookName.value, author.value, pages.value, amIRead);
     bookArray.push(newBook);
     clear(bookName, author, pages);
     showBook();
@@ -91,12 +94,39 @@ function editBook(book_Name) {
 
 
 
+// * read unread function to check if the book is read or not 
+
+function readUnread() {
+
+    const readBtn = document.getElementById('readBtn')
+    readBtn.innerHTML = 'unread'
+    readBtn.setAttribute('style', "background:red;")
+
+    readBtn.addEventListener("click", () => {
+        if (isRead == false) {
+            readBtn.innerHTML = 'read'
+            readBtn.setAttribute('style', "background:green;")
+            isRead = true
+            return amIRead = 'read'
+        } else if (isRead == true) {
+            readBtn.innerHTML = 'unread'
+            readBtn.setAttribute('style', "background:red;")
+            isRead = false
+            return amIRead = 'unread'
+        }
+    })
+}
+readUnread()
 
 function showBook() {
     show.innerHTML = ''
+    console.log(bookArray)
+    const totalBooks = document.getElementById('total_book')
+    totalBooks.innerHTML = `Total Number of book: ${bookArray.length}`
 
-    const totalBooks= document.getElementById('total_book')
-    totalBooks.innerHTML=`Total Number of book: ${bookArray.length}`
+    const readBtn = document.getElementById('readBtn')
+    readBtn.innerHTML = 'unread'
+    readBtn.setAttribute('style', "background:red;")
 
     bookArray.forEach(element => {
         const showBookDiv = document.createElement('div');
@@ -108,6 +138,7 @@ function showBook() {
         deleteBtn.classList.add(".btn");
         show.appendChild(deleteBtn);
         deleteBtn.addEventListener('click', () => deleteBook(element));
+        isRead = false
 
         // *creating edit button
         const editBtn = document.createElement('button');
@@ -123,10 +154,8 @@ function showBook() {
 
         //*displaying element to the div
 
-        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br><br><br>`;
+        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br> ${element.read} <br><br><br>`;
     });
-
-    return isPressed = false
 }
 
 

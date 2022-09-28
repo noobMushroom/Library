@@ -149,9 +149,13 @@ function showBook() {
         const showBookDiv = document.createElement('div');
         show.appendChild(showBookDiv);
         const bookName = document.createElement('div')
+        bookName.classList.add("book_Name")
         const authorName = document.createElement('div')
+        authorName.classList.add("bookDetails")
         const pages = document.createElement('div')
+        pages.classList.add("bookDetails")
         const notes = document.createElement('div')
+        notes.classList.add("bookNotes")
         showBookDiv.appendChild(bookName);
         showBookDiv.appendChild(authorName)
         showBookDiv.appendChild(pages)
@@ -174,10 +178,10 @@ function showBook() {
 
         //*displaying element to the div
 
-        bookName.innerHTML = `Name<br> ${element.name}`
-        authorName.innerHTML = `Author<br> ${element.author}`
-        pages.innerHTML = `Pages<br> ${element.pages}`
-        notes.innerHTML = `Notes<br> ${element.note}`
+        bookName.innerHTML = ` ${element.name}`
+        authorName.innerHTML = `${element.author}`
+        pages.innerHTML = ` ${element.pages}`
+        notes.innerHTML = `${element.note}`
     });
 }
 

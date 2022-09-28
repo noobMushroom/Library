@@ -16,41 +16,50 @@
     <div class="wrapper">
         <div class="booksDiv">
             <div class="newBook">
-                <div class="bookName">
-                    <label for="name">*Title</label>
-                    <input type="text" id='name' name="name" required>
+                <div class="bookName book">
+                    <label for="name" class="name">*Title</label>
+                    <input type="text" id='name' name="name" required class="name">
                 </div>
-                <div class="bookAuthor">
-                    <label for="author">Author</label>
-                    <input type="text" id="author" name="author" required>
+                <div class="bookAuthor book">
+                    <label for="author" class="name">Author</label>
+                    <input type="text" id="author" name="author" required class="name">
                 </div>
-                <div class="pages">
-                    <label for="pages">Pages</label>
-                    <input type="number" id="pages" name="pages" required>
+                <div class="pages book">
+                    <label for="pages" class="name">Pages</label>
+                    <input type="number" id="pages" name="pages" required class="name">
                 </div>
-                <div class="noteBook">
-                    <label for="note">Note</label>
-                    <textarea name="notes" id="notes" cols="30" rows="5" placeholder="Notes about the book"></textarea>
+                <div class="noteBook book">
+                    <label for="note" class="name">Note</label>
+                    <textarea maxlength="100" name="notes" id="notes" cols="30" rows="4"
+                        placeholder="Notes about the book (max length : 100)"></textarea class='name'>
                 </div>
             </div>
             <div class="buttons">
-                <button class="btn" id="readBtn">READ/UNREAD</button>
-                <button id="create" type="submit">Add book</button>
                 <div class="edit" id="edit"></div>
+                <button class="btn" id="readBtn">READ/UNREAD</button>
+                <button id="create" type="submit" class="btn">Add book</button>
                 <div class="readUread">
                 </div>
             </div>
             <div class="books">
-                <div class="totalBook" id="total_book">Total Number of book: 0</div>
-                <div class="totalBook" id="total_read_book">Total Read Book: 0</div>
-                <div class="totalBook" id="total_unread_book">Total Unread Book: 0</div>
-
+                <table>
+                    <tr>
+                        <th>Total Books</th>
+                        <td class="totalBook" id="total_book">0</td>
+                    </tr>
+                <tr>
+                    <th>Total Read Books</th>
+                <td class="totalBook" id="total_read_book">0</td>
+            </tr>
+            <tr>
+                <th>Total Unread Books</th>
+                <td class="totalBook" id="total_unread_book">0</td>
+            </tr>
+            </table>
             </div>
         </div>
         <div class="bookShelf">
-            <div class="container">
-
-            </div>
+            <div class="container"></div>
         </div>
     </div>
 </body>

@@ -18,7 +18,7 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.read = read;
-        this.note=note;
+        this.note = note;
     }
 }
 
@@ -35,25 +35,27 @@ function addBook() {
     const bookName = document.getElementById('name');
     const author = document.getElementById('author');
     const pages = document.getElementById('pages');
-    const notes= document.getElementById('notes')
+    const notes = document.getElementById('notes')
     if (bookName.value === '') {
         return
     }
     let newBook = bookName.value
     newBook = new Book(bookName.value, author.value, pages.value, amIRead, notes.value);
     bookArray.push(newBook);
-    clear(bookName, author, pages,notes);
+    clear(bookName, author, pages, notes);
     showBook();
 }
 
 //* this function delete book from the array
 
 function deleteBook(bookName) {
-    const index = bookArray.indexOf(bookName);
-    if (index > -1) {
-        bookArray.splice(index, 1);
+    if (isPressed == false) {
+        const index = bookArray.indexOf(bookName);
+        if (index > -1) {
+            bookArray.splice(index, 1);
+        }
+        showBook();
     }
-    showBook();
 }
 
 
@@ -65,13 +67,13 @@ function editBook(book_Name) {
     const editBtn = document.createElement("button")
     editBtn.innerHTML = `change ${bookArray[index].name} detail`
     editDiv.appendChild(editBtn)
-    editBtn.classList.add("btn")
+    editBtn.classList.add("editbtn")
 
     // grabbing important elements
     const bookName = document.getElementById('name');
     const author = document.getElementById('author');
     const pages = document.getElementById('pages');
-    const notes= document.getElementById('notes')
+    const notes = document.getElementById('notes')
 
     //changing the values of index 
     editBtn.addEventListener('click', () => {
@@ -93,15 +95,15 @@ function editBook(book_Name) {
             bookArray[index].pages = pages.value;
         }
 
-        if (notes.value==''){
-            notes.value=bookArray[index].note
-        }else{
-            bookArray[index].note=notes.value
+        if (notes.value == '') {
+            notes.value = bookArray[index].note
+        } else {
+            bookArray[index].note = notes.value
         }
 
         bookArray[index].read = amIRead
         showBook()
-        clear(bookName, author, pages, notes );
+        clear(bookName, author, pages, notes);
         editDiv.innerHTML = ''
         return isPressed = false
     })
@@ -114,20 +116,20 @@ function editBook(book_Name) {
 function readUnread() {
     let isRead = false
     const readBtn = document.getElementById('readBtn')
-    readBtn.innerHTML = 'unread'
+    readBtn.innerHTML = 'UNREAD'
     readBtn.setAttribute('style', "background:red;")
-    amIRead = 'unread'
+    amIRead = 'UNREAD'
     readBtn.addEventListener("click", () => {
         if (isRead == false) {
-            readBtn.innerHTML = 'read'
+            readBtn.innerHTML = 'READ'
             readBtn.setAttribute('style', "background:green;")
             isRead = true
-            return amIRead = 'read'
+            return amIRead = 'READ'
         } else if (isRead == true) {
-            readBtn.innerHTML = 'unread'
+            readBtn.innerHTML = 'UNREAD'
             readBtn.setAttribute('style', "background:red;")
             isRead = false
-            return amIRead = 'unread'
+            return amIRead = 'UNREAD'
         }
     })
 }
@@ -138,28 +140,44 @@ function showBook() {
     show.innerHTML = ''
     readUnread()
     const readBtn = document.getElementById('readBtn')
-    readBtn.innerHTML = 'unread'
+    readBtn.innerHTML = 'UNREAD'
     readBtn.setAttribute('style', "background:red;")
-    amIRead = 'unread';
+    amIRead = 'UNREAD';
     bookCalculator()
 
     bookArray.forEach(element => {
         const showBookDiv = document.createElement('div');
-        showBookDiv.classList.add("showBook")
         show.appendChild(showBookDiv);
+        const bookName = document.createElement('div')
+        const authorName = document.createElement('div')
+        const pages = document.createElement('div')
+        const notes = document.createElement('div')
+        showBookDiv.appendChild(bookName);
+        showBookDiv.appendChild(authorName)
+        showBookDiv.appendChild(pages)
+        showBookDiv.appendChild(notes)
+        showBookDiv.classList.add("showBook")
+        
         //create read button
-        createReadBtn(element)
+        createReadBtn(element, showBookDiv)
+        const btns = document.createElement('div')
+        showBookDiv.appendChild(btns)
+        btns.classList.add('button')
 
         //*creating delete button
-        createDeleteBtn(element)
+
+        createDeleteBtn(element, btns)
 
         // *creating edit button
-        createEditBtn(element)
+        createEditBtn(element, btns)
 
 
         //*displaying element to the div
 
-        showBookDiv.innerHTML = `name: ${element.name} <br> author: ${element.author} <br>  pages: ${element.pages} <br> Notes: ${element.note}`;
+        bookName.innerHTML = `Name<br> ${element.name}`
+        authorName.innerHTML = `Author<br> ${element.author}`
+        pages.innerHTML = `Pages<br> ${element.pages}`
+        notes.innerHTML = `Notes<br> ${element.note}`
     });
 }
 
@@ -168,27 +186,27 @@ function clear(name, author, pages, notes) {
     author.value = '';
     pages.value = '';
     name.value = '';
-    notes.value='';
+    notes.value = '';
 }
 
 
 //* Creating read button
-function createReadBtn(book) {
+function createReadBtn(book, div) {
     const index = bookArray.indexOf(book);
     const readUnreadBtn = document.createElement("button");
-    readUnreadBtn.classList.add('btn');
-    if (bookArray[index].read == 'read') {
+    readUnreadBtn.classList.add('readBtn');
+    if (bookArray[index].read == 'READ') {
         readUnreadBtn.setAttribute('style', 'background: green;')
-    } else if (bookArray[index].read == 'unread') {
+    } else if (bookArray[index].read == 'UNREAD') {
         readUnreadBtn.setAttribute('style', 'background: red;')
     }
 
-    show.appendChild(readUnreadBtn);
+    div.appendChild(readUnreadBtn);
     readUnreadBtn.addEventListener("click", () => {
-        if (bookArray[index].read == 'read') {
-            bookArray[index].read = 'unread'
-        } else if (bookArray[index].read == "unread") {
-            bookArray[index].read = 'read'
+        if (bookArray[index].read == 'READ') {
+            bookArray[index].read = 'UNREAD'
+        } else if (bookArray[index].read == "UNREAD") {
+            bookArray[index].read = 'READ'
         }
 
         showBook()
@@ -199,12 +217,12 @@ function createReadBtn(book) {
 
 
 //* creating Edit button
-function createEditBtn(book) {
+function createEditBtn(book, div) {
     const index = bookArray.indexOf(book);
     const editBtn = document.createElement('button');
-    editBtn.textContent = `edit ${bookArray[index].name} book`;
-    editBtn.classList.add("btn");
-    show.appendChild(editBtn)
+    editBtn.innerHTML = `<img src="icons/edit.svg">`;
+    editBtn.classList.add("iconsBtn");
+    div.appendChild(editBtn)
     editBtn.addEventListener("click", () => {
         if (isPressed == false) {
             readUnread()
@@ -217,12 +235,12 @@ function createEditBtn(book) {
 
 
 //*creating delete button
-function createDeleteBtn(book) {
+function createDeleteBtn(book, div) {
     const index = bookArray.indexOf(book);
     const deleteBtn = document.createElement('button');
-    deleteBtn.innerHTML = 'Remove Book';
-    deleteBtn.classList.add("btn");
-    show.appendChild(deleteBtn);
+    deleteBtn.innerHTML = '<img src="icons/delete.svg" >';
+    deleteBtn.classList.add("iconsBtn");
+    div.appendChild(deleteBtn);
     deleteBtn.addEventListener('click', () => deleteBook(book));
 }
 
@@ -231,13 +249,13 @@ function createDeleteBtn(book) {
 // calculating total books in the library and read and unread books.
 function bookCalculator() {
     const totalBooks = document.getElementById('total_book')
-    const totalReadBooks= document.getElementById('total_read_book')
-    const totalUnreadBooks= document.getElementById('total_unread_book')
-    totalBooks.innerHTML = `Total Number of book: ${bookArray.length}`
-    let readBooks= bookArray.filter(book=> book.read=='read');
-    totalReadBooks.innerHTML=`Total read books: ${readBooks.length}`
+    const totalReadBooks = document.getElementById('total_read_book')
+    const totalUnreadBooks = document.getElementById('total_unread_book')
+    totalBooks.innerHTML = `${bookArray.length}`
+    let readBooks = bookArray.filter(book => book.read == 'READ');
+    totalReadBooks.innerHTML = `${readBooks.length}`
 
-    let unreadBooks= bookArray.filter(book=> book.read=='unread');
-    totalUnreadBooks.innerHTML=`Total Unread books: ${unreadBooks.length}`
+    let unreadBooks = bookArray.filter(book => book.read == 'UNREAD');
+    totalUnreadBooks.innerHTML = `${unreadBooks.length}`
 
 }

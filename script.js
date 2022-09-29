@@ -37,6 +37,7 @@ function addBook() {
     const pages = document.getElementById('pages');
     const notes = document.getElementById('notes')
     if (bookName.value === '') {
+        alert("Name required")
         return
     }
     let newBook = bookName.value
@@ -74,6 +75,13 @@ function editBook(book_Name) {
     const author = document.getElementById('author');
     const pages = document.getElementById('pages');
     const notes = document.getElementById('notes')
+
+    // changing innerHtml of elements 
+
+    bookName.value=bookArray[index].name;
+    author.value=bookArray[index].author;
+    pages.value=bookArray[index].pages;
+    notes.value=bookArray[index].note;
 
     //changing the values of index 
     editBtn.addEventListener('click', () => {
@@ -117,17 +125,17 @@ function readUnread() {
     let isRead = false
     const readBtn = document.getElementById('readBtn')
     readBtn.innerHTML = 'UNREAD'
-    readBtn.setAttribute('style', "background:red;")
+    readBtn.setAttribute('style', "background:#dc2626;")
     amIRead = 'UNREAD'
     readBtn.addEventListener("click", () => {
         if (isRead == false) {
             readBtn.innerHTML = 'READ'
-            readBtn.setAttribute('style', "background:green;")
+            readBtn.setAttribute('style', "background:#22c55e;")
             isRead = true
             return amIRead = 'READ'
         } else if (isRead == true) {
             readBtn.innerHTML = 'UNREAD'
-            readBtn.setAttribute('style', "background:red;")
+            readBtn.setAttribute('style', "background:#dc2626;")
             isRead = false
             return amIRead = 'UNREAD'
         }
@@ -141,7 +149,7 @@ function showBook() {
     readUnread()
     const readBtn = document.getElementById('readBtn')
     readBtn.innerHTML = 'UNREAD'
-    readBtn.setAttribute('style', "background:red;")
+    readBtn.setAttribute('style', "background:#dc2626;")
     amIRead = 'UNREAD';
     bookCalculator()
 
@@ -200,9 +208,9 @@ function createReadBtn(book, div) {
     const readUnreadBtn = document.createElement("button");
     readUnreadBtn.classList.add('readBtn');
     if (bookArray[index].read == 'READ') {
-        readUnreadBtn.setAttribute('style', 'background: green;')
+        readUnreadBtn.setAttribute('style', 'background: #22c55e;')
     } else if (bookArray[index].read == 'UNREAD') {
-        readUnreadBtn.setAttribute('style', 'background: red;')
+        readUnreadBtn.setAttribute('style', 'background: #dc2626;')
     }
 
     div.appendChild(readUnreadBtn);
@@ -224,7 +232,7 @@ function createReadBtn(book, div) {
 function createEditBtn(book, div) {
     const index = bookArray.indexOf(book);
     const editBtn = document.createElement('button');
-    editBtn.innerHTML = `<img src="icons/edit.svg">`;
+    editBtn.innerHTML = `<img src="icons/edit.png">`;
     editBtn.classList.add("iconsBtn");
     div.appendChild(editBtn)
     editBtn.addEventListener("click", () => {
@@ -242,7 +250,7 @@ function createEditBtn(book, div) {
 function createDeleteBtn(book, div) {
     const index = bookArray.indexOf(book);
     const deleteBtn = document.createElement('button');
-    deleteBtn.innerHTML = '<img src="icons/delete.svg" >';
+    deleteBtn.innerHTML = '<img src="icons/delete (1).png" >';
     deleteBtn.classList.add("iconsBtn");
     div.appendChild(deleteBtn);
     deleteBtn.addEventListener('click', () => deleteBook(book));

@@ -12,6 +12,8 @@ let bookArray = [];
 let isPressed = false;// it will determine the functionality of different buttons
 let amIRead = ''; // tells if user have read the book
 
+
+// creates new object
 class Book {
     constructor(name, author, pages, read, note) {
         this.name = name;
@@ -144,31 +146,26 @@ function readUnread() {
 readUnread()
 
 
+// this function displays book on the screen
 function showBook() {
     show.innerHTML = ''
+
+    // changing back read unread button styling.
     readUnread()
     const readBtn = document.getElementById('readBtn')
     readBtn.innerHTML = 'UNREAD'
     readBtn.setAttribute('style', "background:#dc2626;")
     amIRead = 'UNREAD';
+
+    // shows total books
     bookCalculator()
 
     bookArray.forEach(element => {
         const showBookDiv = document.createElement('div');
         show.appendChild(showBookDiv);
-        const bookName = document.createElement('div')
-        bookName.classList.add("book_Name")
-        const authorName = document.createElement('div')
-        authorName.classList.add("bookDetails")
-        const pages = document.createElement('div')
-        pages.classList.add("bookDetails")
-        const notes = document.createElement('div')
-        notes.classList.add("bookNotes")
-        showBookDiv.appendChild(bookName);
-        showBookDiv.appendChild(authorName)
-        showBookDiv.appendChild(pages)
-        showBookDiv.appendChild(notes)
-        showBookDiv.classList.add("showBook")
+
+        //create divs and show them to display
+        createShowBookDiv(showBookDiv, element)
         
         //create read button
         createReadBtn(element, showBookDiv)
@@ -177,23 +174,14 @@ function showBook() {
         btns.classList.add('button')
 
         //*creating delete button
-
         createDeleteBtn(element, btns)
 
         // *creating edit button
-        createEditBtn(element, btns)
-
-
-        //*displaying element to the div
-
-        bookName.innerHTML = ` ${element.name}`
-        authorName.innerHTML = `${element.author}`
-        pages.innerHTML = ` ${element.pages}`
-        notes.innerHTML = `${element.note}`
+        createEditBtn(element, btns)      
     });
 }
 
-
+//* this functions clear all the inputs
 function clear(name, author, pages, notes) {
     author.value = '';
     pages.value = '';
@@ -207,6 +195,8 @@ function createReadBtn(book, div) {
     const index = bookArray.indexOf(book);
     const readUnreadBtn = document.createElement("button");
     readUnreadBtn.classList.add('readBtn');
+
+    //setting color of read button and changing it when click
     if (bookArray[index].read == 'READ') {
         readUnreadBtn.setAttribute('style', 'background: #22c55e;')
     } else if (bookArray[index].read == 'UNREAD') {
@@ -214,6 +204,8 @@ function createReadBtn(book, div) {
     }
 
     div.appendChild(readUnreadBtn);
+
+    //changing the value of read and unread in array
     readUnreadBtn.addEventListener("click", () => {
         if (bookArray[index].read == 'READ') {
             bookArray[index].read = 'UNREAD'
@@ -221,6 +213,7 @@ function createReadBtn(book, div) {
             bookArray[index].read = 'READ'
         }
 
+        //showing it on the display
         showBook()
     }
     )
@@ -270,4 +263,29 @@ function bookCalculator() {
     let unreadBooks = bookArray.filter(book => book.read == 'UNREAD');
     totalUnreadBooks.innerHTML = `${unreadBooks.length}`
 
+}
+
+
+//creating different divs to show book details. 
+function createShowBookDiv(div, element){ 
+        const bookName = document.createElement('div')
+        bookName.classList.add("book_Name")
+        const authorName = document.createElement('div')
+        authorName.classList.add("bookDetails")
+        const pages = document.createElement('div')
+        pages.classList.add("bookDetails")
+        const notes = document.createElement('div')
+        notes.classList.add("bookNotes")
+        div.appendChild(bookName);
+        div.appendChild(authorName)
+        div.appendChild(pages)
+        div.appendChild(notes)
+        div.classList.add("showBook")
+
+        // *shows book div 
+
+        bookName.innerHTML = ` ${element.name}`
+        authorName.innerHTML = `${element.author}`
+        pages.innerHTML = ` ${element.pages}`
+        notes.innerHTML = `${element.note}`
 }

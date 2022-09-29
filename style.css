@@ -8,11 +8,6 @@ button{
     border: none;
 }
 
-.edit{
-    margin-bottom: 10px;
-}
-
-
 /* *Header */
 .head {
     background-color: #0f172a;
@@ -27,8 +22,8 @@ button{
     position: relative;
     display: flex;
     background-color: #d1fae5;
-
 }
+
 
 .booksDiv {
     display: flex;
@@ -48,15 +43,15 @@ button{
 
 }
 
-
+/* to enter the book details */
 .newBook {
     margin: 20px 0;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: center;
     font-size: 1.3em;
 }
+
 
 .newBook input {
     font-size: 20px;
@@ -69,13 +64,11 @@ button{
 }
 
 .book {
-
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     margin: 5px 0;
-
 }
 
 .book textarea {
@@ -96,10 +89,13 @@ button{
         0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 
+/* more styling in input methods */
 .name {
     margin-bottom: 10px;
 }
 
+
+/* shows the total count of books */
 .books {
     background-color: #d1fae5;
     width: 70%;
@@ -121,12 +117,13 @@ button{
 }
 
 
+/* Books will go inside this div */
 .bookShelf {
     width: 100vw;
     overflow: hidden;
 }
 
-
+/* books cards will go inside this */
 .show {
     display: grid;
     grid-template-columns: auto auto;
@@ -136,6 +133,8 @@ button{
     gap: 30px;
 }
 
+
+/* Book cards */
 .showBook {
     display: flex;
     flex-direction: column;
@@ -152,6 +151,7 @@ button{
         0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 
+/* css of edit and delete button inside the card */
 .button{
     margin-top: 20px;
     display: flex;
@@ -160,7 +160,7 @@ button{
     border-radius:10px ;
 }
 
-
+/* css of add and read unread button on form. */
 .btn{
     height: 40px;
     width:150px;
@@ -172,7 +172,10 @@ button{
     height: 42px;;
 }
 
+/* css of edit btn which will pop when user clicks edit */
+
 .editbtn{
+    margin-bottom: 10px;
     padding: 5px 10px;    
     height: 40px;
     width: 100%;
@@ -180,6 +183,7 @@ button{
     background-color: #fb7185;
 }
 
+/* css of edit and delete button inside the card */
 .iconsBtn{
     background: none;
     width: 70px;
@@ -198,6 +202,8 @@ button{
 }
 
 
+
+/* css of read and unread button on the card */
 .readBtn{
     width: 100%;
     outline: none;
@@ -209,6 +215,8 @@ button{
     height: 42px;
 }
 
+
+/* css of book detail inside the card */
 .bookDetails{
     text-transform: capitalize;
 }
@@ -222,5 +230,3 @@ button{
     font-size: 35px;
     font-weight: 900;
 }
-
-

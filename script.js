@@ -266,7 +266,7 @@ function bookCalculator() {
 }
 
 
-//creating different divs to show book details. 
+//creating different divs to show book details
 function createShowBookDiv(div, element){ 
         const bookName = document.createElement('div')
         bookName.classList.add("book_Name")

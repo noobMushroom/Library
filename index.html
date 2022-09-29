@@ -14,7 +14,10 @@
 
     <header class="head">LIBRARY</header>
     <div class="wrapper">
+
+        <!-- this div will have all input methods and total number of books -->
         <div class="booksDiv">
+            <!-- all teh input methods -->
             <div class="newBook">
                 <div class="bookName book">
                     <label for="name" class="name">*Title</label>
@@ -22,7 +25,7 @@
                 </div>
                 <div class="bookAuthor book">
                     <label for="author" class="name">Author</label>
-                    <input maxlength="40"  type="text" id="author" name="author" required class="name">
+                    <input maxlength="40" type="text" id="author" name="author" required class="name">
                 </div>
                 <div class="pages book">
                     <label for="pages" class="name">Pages</label>
@@ -34,6 +37,8 @@
                         placeholder="Notes about the book (max length : 100)"></textarea class='name'>
                 </div>
             </div>
+
+            <!--all the buttons read unread and add book and edit book -->
             <div class="buttons">
                 <div class="edit" id="edit"></div>
                 <button class="btn" id="readBtn">READ/UNREAD</button>
@@ -41,6 +46,8 @@
                 <div class="readUread">
                 </div>
             </div>
+
+            <!-- this div shows total number of books -->
             <div class="books">
                 <table>
                     <tr>
@@ -58,6 +65,7 @@
             </table>
             </div>
         </div>
+        <!-- all the books will go inside this -->
         <div class="bookShelf">
             <div class="container"></div>
         </div>
